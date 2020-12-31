@@ -25,26 +25,46 @@ const CountryInfo = ({ country, capital, population, languages, flag }) => {
 	);
 };
 
+const CountriesResults = ({ countryName, handleOnClick }) => {
+	return (
+		<div>
+			<li key={countryName}>
+				{countryName}{' '}
+				<button id={countryName} onClick={() => handleOnClick(countryName)}>
+					Show
+				</button>
+			</li>
+		</div>
+	);
+};
+
 const App = () => {
 	const [countries, setCountries] = useState([]);
 	const [filterCountries, setFilterCountries] = useState([]);
-	const [searchCountries, setSearchCountries] = useState('');
 
 	useEffect(() => {
 		axios.get('https://restcountries.eu/rest/v2/all').then((response) => {
 			console.log('promise fulfilled');
 			setCountries(response.data);
-			console.log(countries);
 		});
 	}, []);
 
-	const handleOnChange = (event) => {
-		const search = event.target.value;
-		setSearchCountries(search);
-		const filtered = countries.filter(
+	const findCountry = (search) => {
+		search = countries.filter(
 			(country) => country.name.toLowerCase().indexOf(search.toLowerCase()) >= 0
 		);
-		setFilterCountries(filtered);
+		return search;
+	};
+
+	let selectedCountry;
+	const handleOnChange = (event) => {
+		selectedCountry = findCountry(event.target.value);
+		setFilterCountries(selectedCountry);
+	};
+
+	const handleOnClick = (clickedCountry) => {
+		selectedCountry = findCountry(clickedCountry);
+		setFilterCountries(selectedCountry);
 	};
 
 	const handleSearchCountries = () => {
@@ -60,20 +80,22 @@ const App = () => {
 					flag={filterCountries[0].flag}
 				/>
 			);
-		}
-
-		if (searchCountries.length === 0) {
-			return '';
-		}
-
-		if (filterCountries.length >= 5) {
+		} else if (
+			filterCountries.length >= 10 &&
+			filterCountries.length !== countries.length
+		) {
 			return <p>Too many matches, keep typing...</p>;
+		} else if (filterCountries.length < 10 && filterCountries.length >= 1) {
+			const countryList = filterCountries.map((country) => (
+				<CountriesResults
+					key={country.name}
+					countryName={country.name}
+					handleOnClick={handleOnClick}
+				/>
+			));
+			return countryList;
 		}
-
-		const countryList = filterCountries.map((country, i) => (
-			<li key={i}>{country.name}</li>
-		));
-		return countryList;
+		return '';
 	};
 
 	return (
