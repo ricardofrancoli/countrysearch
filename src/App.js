@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+import CountryInfo from './components/CountryInfo';
+import CountriesResults from './components/CountriesResults';
+
+const api_key = process.env.REACT_APP_API_KEY;
+
 const SearchCountry = ({ handleOnChange }) => {
 	return (
 		<div>
@@ -12,35 +17,10 @@ const SearchCountry = ({ handleOnChange }) => {
 	);
 };
 
-const CountryInfo = ({ country, capital, population, languages, flag }) => {
-	return (
-		<div>
-			<h2>{country}</h2>
-			<p>Capital: {capital}</p>
-			<p>Population: {population}</p>
-			<h4>Languages</h4>
-			<ul>{languages}</ul>
-			<img src={flag} alt='country-flag' width='200' />
-		</div>
-	);
-};
-
-const CountriesResults = ({ countryName, handleOnClick }) => {
-	return (
-		<div>
-			<li key={countryName}>
-				{countryName}{' '}
-				<button id={countryName} onClick={() => handleOnClick(countryName)}>
-					Show
-				</button>
-			</li>
-		</div>
-	);
-};
-
 const App = () => {
 	const [countries, setCountries] = useState([]);
 	const [filterCountries, setFilterCountries] = useState([]);
+	const [weather, setWeather] = useState([]);
 
 	useEffect(() => {
 		axios.get('https://restcountries.eu/rest/v2/all').then((response) => {
@@ -48,6 +28,21 @@ const App = () => {
 			setCountries(response.data);
 		});
 	}, []);
+
+	useEffect(() => {
+		if (filterCountries.length > 0) {
+			axios
+				.get('http://api.weatherstack.com/current', {
+					params: {
+						access_key: api_key,
+						query: filterCountries[0].capital,
+					},
+				})
+				.then((response) => {
+					setWeather(response.data);
+				});
+		}
+	}, [filterCountries]);
 
 	const findCountry = (search) => {
 		search = countries.filter(
@@ -78,6 +73,9 @@ const App = () => {
 						<li key={i}>{language.name}</li>
 					))}
 					flag={filterCountries[0].flag}
+					temperature={weather.current.temperature}
+					weatherIcon={weather.current.weather_icons[0]}
+					wind={weather.current.wind_speed}
 				/>
 			);
 		} else if (
