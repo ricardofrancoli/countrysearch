@@ -6,9 +6,9 @@ const CountryInfo = ({
 	population,
 	languages,
 	flag,
-	temperature,
-	weatherIcon,
-	wind,
+	// temperature,
+	// weatherIcon,
+	// wind,
 }) => {
 	return (
 		<div>
@@ -18,10 +18,10 @@ const CountryInfo = ({
 			<h4>Languages</h4>
 			<ul>{languages}</ul>
 			<img src={flag} alt='country-flag' width='200' />
-			<h3>Weather in {capital}</h3>
+			{/* <h3>Weather in {capital}</h3>
 			<p>Temperature: {temperature}</p>
 			<img src={weatherIcon} alt='weather-icon' width='100' />
-			<p>Wind: {wind}</p>
+			<p>Wind: {wind}</p> */}
 		</div>
 	);
 };
