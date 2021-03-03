@@ -1,15 +1,6 @@
 import React from 'react';
 
-const CountryInfo = ({
-	country,
-	capital,
-	population,
-	languages,
-	flag,
-	// temperature,
-	// weatherIcon,
-	// wind,
-}) => {
+const CountryInfo = ({ country, capital, population, languages, flag }) => {
 	return (
 		<div className='pl-3.5'>
 			<h2 className='text-2xl'>{country}</h2>
@@ -20,10 +11,6 @@ const CountryInfo = ({
 				<ul>{languages}</ul>
 			</div>
 			<img src={flag} alt='country-flag' width='200' />
-			{/* <h3>Weather in {capital}</h3>
-			<p>Temperature: {temperature}</p>
-			<img src={weatherIcon} alt='weather-icon' width='100' />
-			<p>Wind: {wind}</p> */}
 		</div>
 	);
 };
