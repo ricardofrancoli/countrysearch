@@ -8,9 +8,11 @@ import CountriesResults from './components/CountriesResults';
 
 const SearchCountry = ({ handleOnChange }) => {
 	return (
-		<div className=''>
-			<h1 className=''>Start typing a country name</h1>
-			<form>
+		<div className='w-full'>
+			<h1 className='text-3xl mt-16 mb-12'>
+				Type a country name and I will tell you some info 👀
+			</h1>
+			<form className='text-sm pl-3.5'>
 				<input onChange={handleOnChange} placeholder='Find countries...' />
 			</form>
 		</div>
@@ -82,7 +84,7 @@ const App = () => {
 			filterCountries.length >= 10 &&
 			filterCountries.length !== countries.length
 		) {
-			return <p>Too many matches, keep typing...</p>;
+			return <p className='text-sm pl-3.5'>Too many matches, keep typing...</p>;
 		} else if (filterCountries.length < 10 && filterCountries.length >= 1) {
 			const countryList = filterCountries.map((country) => (
 				<CountriesResults
