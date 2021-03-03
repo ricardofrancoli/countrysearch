@@ -29,15 +29,15 @@ form,
 input {
 	background-color: #ffffe0;
 	height: 50px;
+	border-radius: 5px;
+}
+
+form {
+	box-shadow: 0 0 4px rgba(0, 0, 0, 0.05), 0 0 8px rgba(0, 0, 0, 0.07);
 }
 
 input {
 	width: 100%;
-}
-
-form {
-	border-radius: 5px;
-	box-shadow: 0 0 4px rgba(0, 0, 0, 0.05), 0 0 8px rgba(0, 0, 0, 0.07);
 }
 
 input:focus {
