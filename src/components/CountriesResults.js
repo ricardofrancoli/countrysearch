@@ -2,13 +2,10 @@ import React from 'react';
 
 const CountriesResults = ({ countryName, handleOnClick }) => {
 	return (
-		<div className='container search-container is-centered'>
+		<div className=''>
 			<li key={countryName}>
 				{countryName}{' '}
-				<button
-					className='button is-link is-small'
-					onClick={() => handleOnClick(countryName)}
-				>
+				<button className='' onClick={() => handleOnClick(countryName)}>
 					Show
 				</button>
 			</li>

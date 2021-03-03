@@ -8,8 +8,8 @@ import CountriesResults from './components/CountriesResults';
 
 const SearchCountry = ({ handleOnChange }) => {
 	return (
-		<div className='container'>
-			<h1 className='title is-1'>Start typing a country name</h1>
+		<div className=''>
+			<h1 className=''>Start typing a country name</h1>
 			<form>
 				<input onChange={handleOnChange} placeholder='Find countries...' />
 			</form>

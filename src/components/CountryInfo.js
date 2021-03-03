@@ -11,7 +11,7 @@ const CountryInfo = ({
 	// wind,
 }) => {
 	return (
-		<div className='container result-container is-centered'>
+		<div className=''>
 			<h2>{country}</h2>
 			<p>Capital: {capital}</p>
 			<p>Population: {population}</p>
